@@ -42,8 +42,10 @@ A step by step series of examples that tell you how to get a development env run
 </p>
 
 2. #### Profile
+<img title="Profile Page" src="./pages_sample/profile.png" width="200" height="380">
+<img title="Networking Page" src="./pages_sample/networking.png" width="200" height="380">
 
-3. #### 
+3. #### Networking
 ## Built With
 
 * [Flutter](https://flutter.dev/) - Google’s UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop from a single codebase.
