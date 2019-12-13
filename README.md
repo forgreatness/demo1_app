@@ -35,7 +35,7 @@ A step by step series of examples that tell you how to get a development env run
 
 ### Pages
 1. Home
-<img src="/pages_sample/home_login_tab.png" width=100 height=300>
+<img src="/pages_sample/home_login_tab.png" width=150 height=300>
 
 ## Built With
 
