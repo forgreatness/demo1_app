@@ -34,10 +34,10 @@ A step by step series of examples that tell you how to get a development env run
 ```
 
 ### Pages
-#### Home
+1. Home
 Login Tab | Signup Tab | Signup Form
 :--------:|:----------:|:-----------:
-![home_login_tab](pages_sample/home_login_tab.png)|![home_signup_tab](pages_sample/home_singup_tab.png)|![home_singup_form](pages_sample/home_signup_form)
+![home_login_tab](pages_sample/home_login_tab.png) | ![home_signup_tab](pages_sample/home_singup_tab.png) | ![home_singup_form](pages_sample/home_signup_form)
 
 ## Built With
 
