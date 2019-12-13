@@ -35,7 +35,11 @@ A step by step series of examples that tell you how to get a development env run
 
 ### Pages
 1. Home
-<img src="/pages_sample/home_login_tab.png" width=150 height=300>
+<p float="left">
+  <img src="./pages_sample/home_login_tab.png" width="150" height="300" title="Login Tab" />
+  <img src="./pages_sample/home_signup_tab.png" width="100" height="300" title="Signup Tab"/> 
+  <img src="./pages_sample/home_signup_form.png" width="100" height="300" title="Signup Form"/>
+</p>
 
 ## Built With
 
