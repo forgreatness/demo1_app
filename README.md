@@ -33,19 +33,21 @@ A step by step series of examples that tell you how to get a development env run
 
 ## Pages
 
-1. #### Home
+#### Home
 
 <p float="left">
   <img title="Login Tab" src="./pages_sample/home_login_tab.png" width="260" height="480"  />
   <img title="Signup Tab" src="./pages_sample/home_signup_tab.png" width="260" height="480" /> 
   <img title="Signup Form "src="./pages_sample/home_signup_form.png" width="260" height="480"/>
 </p>
+**Navigations**
+Login Tab &rarr;{\text{Sign Up Tab}} Signup Tab &rarr;{\text{Sign Up With Email}} Sign Up Form
 
-2. #### Profile
+#### Profile
 
 <img title="Profile Page" src="./pages_sample/profile.png" width="260" height="480">
 
-3. #### Networking
+#### Networking
 
 <img title="Networking Page" src="./pages_sample/networking.png" width="260" height="480">
 
