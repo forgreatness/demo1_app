@@ -41,9 +41,9 @@ A step by step series of examples that tell you how to get a development env run
   <img title="Signup Form "src="./pages_sample/home_signup_form.png" width="260" height="480"/>
 </p>
 
-> **Navigations**
+&nbsp;&nbsp;&nbsp;&nbsp;**Navigations**
 
->> Login Tab &rarr; Signup Tab &rarr; Sign Up Form
+&nbsp;&nbsp;&nbsp;&nbsp;Login Tab &rarr; Signup Tab &rarr; Sign Up Form
 
 #### Profile
 
