@@ -20,8 +20,7 @@ samples, guidance on mobile development, and a full API reference.
 What things you need to install the software and how to install them
 
 ```
-1. Flutter sdk
-2. Editor with Flutter/Dart support (Android Studio or VsCode)
+Install the Flutter sdk with [Windows](https://flutter.dev/docs/get-started/install/windows), [MacOS](https://flutter.dev/docs/get-started/install/macos), or [Linux](https://flutter.dev/docs/get-started/install/linux)
 ```
 
 ### Prerequisites
@@ -31,9 +30,12 @@ A step by step series of examples that tell you how to get a development env run
 ```
 1. git clone https://github.com/forgreatness/demo1_app.git
 2. Run "flutter pub get" within the root of project
+3. Set up emmulator or a physical devices for testing
+4. Run "flutter doctor" for sdk diagnoses
+5. Run "flutter run" for testing development env
 ```
 
-### Pages
+## Pages
 
 1. #### Home
 
