@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:demo1_app/widgets/cards/details/community.dart';
+import 'package:demo1_app/widgets/cards/community.dart';
 import 'package:demo1_app/widgets/chips/choice/rounded_rect.dart';
-import 'package:demo1_app/widgets/cards/invitations/individual.dart';
+import 'package:demo1_app/widgets/cards/individual.dart';
+import 'package:demo1_app/resources/models/event.dart';
 
 class NetworkingPage extends StatefulWidget {
   final String title;
@@ -17,45 +18,79 @@ class NetworkingPage extends StatefulWidget {
 
 class _NetworkingPageState extends State<NetworkingPage> {
   final String title;
-  final List<CommunityDetailsCard> communityCards = [
-    CommunityDetailsCard(
-      imageSource: 'assets/images/boston_startups.jpg',
-      communityName: 'Boston Startup Incubation and Acceleration',
-      numNewEvents: 2,
-      numNewDiscussions: 1,
-    ),
-    CommunityDetailsCard(
-      imageSource: 'assets/images/hackers_agenda.jpg',
-      communityName: 'Hackers Agenda',
-      numNewEvents: 0,
-      numNewDiscussions: 4,
-    ),
-  ];
-  final List<IndividualInvitationCard> individualInvitationCards = [
-    IndividualInvitationCard(
-      name: 'Danh Nguyen',
-      description: 'Experienced Mobile App and Game Developer with some Backend knowledge',
-      relationship: 'You and Danh both work at Uber',
-      imageSource: 'assets/images/danh_nguyen.jpg'
-    ),
-    IndividualInvitationCard(
-      name: 'Quan Nguyen',
-      description: 'Experienced Full Stack Developer with 18 years of experiences in field',
-      relationship: 'You and Quan both have interest in Flutter SDK',
-      imageSource: 'assets/images/quan_nguyen.jpg'
-    ),
-  ];
-  final List<String> invitationChoiceChips = [
+  final List<String> _invitationChoiceChips = [
     'People',
     'Communities'
   ];
-  int selectedInvitationChoiceChipId;
+
+  int _selectedInvitationChoiceChipId;
+  List<CommunityDetailsCard> _communityCards;
+  List<IndividualInvitationCard> _individualInvitationCards;
 
   _NetworkingPageState(this.title);
 
   @override
   void initState() {
-    selectedInvitationChoiceChipId = 0;
+    _selectedInvitationChoiceChipId = 0;
+
+    //This is where we need to access a database to get the list of events
+    //base on the name of the community
+    List<Event> bostonEvents = [
+      new Event(
+        name: "Meet the new Incubations",
+        date: new DateTime.utc(2020, 1, 30, 0, 0, 0)
+      ),
+      new Event(
+        name: "Catch up with Techno",
+        date: new DateTime.utc(2020, 3, 15, 3, 0)
+      ),
+      new Event(
+        name: "The Rise of Click",
+        date: new DateTime.utc(2020, 1, 1, 0, 0, 0)
+      )
+    ];
+
+    List<Event> hackersEvents = [
+      new Event(
+        name: "How hackers keep tracks hidden",
+        date: new DateTime.utc(2019, 12, 23)
+      ),
+      new Event(
+        name: "Meet a hacker",
+        date: new DateTime.utc(2019, 12, 24)
+      )
+    ];
+
+    _communityCards = [
+      CommunityDetailsCard(
+        imageSource: 'assets/images/boston_startups.jpg',
+        communityName: 'Boston Startup Incubation and Acceleration',
+        latestEvent: findLatestEvent(bostonEvents),
+        numNewEvents: bostonEvents.length,
+        numNewDiscussions: 1,
+      ),
+      CommunityDetailsCard(
+        imageSource: 'assets/images/hackers_agenda.jpg',
+        communityName: 'Hackers Agenda',
+        latestEvent: findLatestEvent(hackersEvents),
+        numNewEvents: hackersEvents.length,
+        numNewDiscussions: 4,
+      ),
+    ];
+    _individualInvitationCards = [
+      IndividualInvitationCard(
+        name: 'Danh Nguyen',
+        description: 'Experienced Mobile App and Game Developer with some Backend knowledge',
+        relationship: 'You and Danh both work at Uber',
+        imageSource: 'assets/images/danh_nguyen.jpg'
+      ),
+      IndividualInvitationCard(
+        name: 'Quan Nguyen',
+        description: 'Experienced Full Stack Developer with 18 years of experiences in field',
+        relationship: 'You and Quan both have interest in Flutter SDK',
+        imageSource: 'assets/images/quan_nguyen.jpg'
+      ),
+    ];
     super.initState();
   }
 
@@ -93,11 +128,11 @@ class _NetworkingPageState extends State<NetworkingPage> {
         Container(
           height: 300,
           child: ListView.separated(
-            itemCount: communityCards.length,
+            itemCount: _communityCards.length,
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
             itemBuilder: (context, index) {
-              return communityCards[index];
+              return _communityCards[index];
             },
             separatorBuilder: (context, index) {
               return SizedBox(
@@ -121,11 +156,11 @@ class _NetworkingPageState extends State<NetworkingPage> {
           height: 50,
           alignment: Alignment.topLeft,
           child: ListView.separated(
-            itemCount: invitationChoiceChips.length,
+            itemCount: _invitationChoiceChips.length,
             itemBuilder: (context, index) {
               return RoundedRectChoiceChip(
-                invitationChoiceChips[index], 
-                selectedInvitationChoiceChipId == index, 
+                _invitationChoiceChips[index], 
+                _selectedInvitationChoiceChipId == index, 
                 index,
                 selectedChoiceChip
               );
@@ -144,7 +179,7 @@ class _NetworkingPageState extends State<NetworkingPage> {
             itemCount: 2,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return individualInvitationCards[index];
+              return _individualInvitationCards[index];
             },
             separatorBuilder: (context, index) {
               return SizedBox(
@@ -193,10 +228,38 @@ class _NetworkingPageState extends State<NetworkingPage> {
   }
 
   void selectedChoiceChip(int choiceChipId) {
-    if (choiceChipId != selectedInvitationChoiceChipId) {
+    if (choiceChipId != _selectedInvitationChoiceChipId) {
       setState(() {
-        selectedInvitationChoiceChipId = choiceChipId;
+        _selectedInvitationChoiceChipId = choiceChipId;
       });
     }
+  }
+
+  Event findLatestEvent(List<Event> events) {
+    Event latestEvent = events[0];
+
+    for(int i = 0; i < events.length; i++) {
+      // If the event happens after today
+      if (!events[i].date.difference(DateTime.now()).isNegative) {
+        // If the event happens after the previous latest event
+        if (events[i].date.difference(latestEvent.date).isNegative) {
+          latestEvent = events[i];
+        }
+      } else {
+        // If the latest event happened before today
+        if (latestEvent.date.difference(DateTime.now()).isNegative) {
+          /* 
+           * If the events[i] happens after the latestEvent, 
+           * then the most recent event is events[i] because 
+           * both events happened before now()
+          */
+          if (!events[i].date.difference(latestEvent.date).isNegative) {
+            latestEvent = events[i];
+          }
+        }
+      }
+    }
+
+    return latestEvent;
   }
 }

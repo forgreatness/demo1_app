@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
+import 'package:demo1_app/resources/models/event.dart';
+
 class CommunityDetailsCard extends StatelessWidget {
   final String imageSource;
   final String communityName;
-  final int numNewEvents;
+  final Event latestEvent;
   final int numNewDiscussions;
-
+  final int numNewEvents;
+  
   CommunityDetailsCard({
     Key key,
     @required this.imageSource,
     @required this.communityName,
-    @required this.numNewEvents,
-    @required this.numNewDiscussions
+    @required this.latestEvent,
+    @required this.numNewDiscussions,
+    @required this.numNewEvents
   }) : super(key:key);
 
   @override
@@ -19,11 +23,8 @@ class CommunityDetailsCard extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(5))
-      ),
       child: Container (
-        width: 250,
+        width: 230,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
@@ -44,18 +45,18 @@ class CommunityDetailsCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+              padding: EdgeInsets.all(15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  cardsHeader(),
-                  (numNewEvents > 0) ? cardsBody() : SizedBox.shrink(),
+                  buildCardsHeader(),
+                  (latestEvent != null) ? buildCardsBody() : SizedBox.shrink(),
                   Expanded(
                     child: SizedBox.shrink(),
                   ),
-                  cardsFooter()
+                  buildCardsFooter()
                 ],
               ),
             ),
@@ -65,7 +66,7 @@ class CommunityDetailsCard extends StatelessWidget {
     );
   }
 
-  Widget cardsHeader() {
+  Widget buildCardsHeader() {
     return Text(
       communityName,
       style: TextStyle(
@@ -76,12 +77,14 @@ class CommunityDetailsCard extends StatelessWidget {
     );
   }
 
-  Widget cardsBody() {
+  Widget buildCardsBody() {
     return Opacity(
       opacity: 0.8,
       child: Chip(
         label: Text(
-          'Next event in 2 days',
+          (latestEvent.date.difference(DateTime.now()).isNegative) ? 
+            'Last event was ${latestEvent.date.difference(DateTime.now()).inDays.abs()} days ago'
+            : 'Next event in ${latestEvent.date.difference(DateTime.now()).inDays} days',
           style: TextStyle(
             color: Colors.white.withOpacity(1).withAlpha(255),
           )
@@ -91,14 +94,14 @@ class CommunityDetailsCard extends StatelessWidget {
     );
   }
 
-  Widget cardsFooter() {
+  Widget buildCardsFooter() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         (numNewEvents > 0) ? Text(
-          '$numNewEvents new events',
+          '${numNewEvents} new events',
           style: TextStyle(
             color: Colors.white
           ),
